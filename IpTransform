@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+void main(void)
+{
+    unsigned char ipSource[] = "10.190.50.72";
+    unsigned char ipDest[10];
+    unsigned char *pSource = ipSource;
+    int sum = 0;
+    int i = 0;
+
+    while(*pSource != '\0')
+    {  
+        printf("this is %i time calculation\n", i);
+        printf("the current char is %d \n", *pSource);
+        if(*pSource != '.')
+        {
+            sum = sum*10 + (*pSource - '0');
+            printf(" the value of sum is %d \n", sum);
+        }
+        else
+        {
+            ipDest[i++] = ((sum / 16) < 10)?
+                ((sum / 16) + '0'):((sum / 16) - 10 + 'A');
+            ipDest[i++] = ((sum % 16) < 10)?
+                ((sum % 16) + '0'):((sum % 16) - 10 + 'A');
+            sum = 0;
+        }
+        pSource++;
+    }
+    ipDest[i] = '\0';
+    printf("the ip address provided is %s \n ", ipSource);
+    printf("the transformed ip is %s", ipDest);
+}
